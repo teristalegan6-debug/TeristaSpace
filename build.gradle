@@ -37,5 +37,6 @@ allprojects {
         mavenCentral()
         gradlePluginPortal()
         jcenter() // optional
+        maven { url "https://jitpack.io" }
     }
 }
