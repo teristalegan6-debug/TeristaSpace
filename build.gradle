@@ -1,17 +1,37 @@
-
 plugins {
-alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.android.library) apply false
 }
 
 ext {
     compileSdkVersion = 35
-    targetSdkVersion = 35 
+    targetSdkVersion = 35
 
     minSdk = 24
     versionCode = 500
     versionName = "5.0.0"
     xVersion = '1.1.0'
     hiddenApiBypass = '4.3'
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.7.3")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0")
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        jcenter() // optional, helps with older libraries
+    }
 }
