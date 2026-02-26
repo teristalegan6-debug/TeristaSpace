@@ -1,20 +1,4 @@
-plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.jetbrains.kotlin.android) apply false
-    alias(libs.plugins.android.library) apply false
-}
-
-ext {
-    compileSdkVersion = 35
-    targetSdkVersion = 35
-
-    minSdk = 24
-    versionCode = 500
-    versionName = "5.0.0"
-    xVersion = '1.1.0'
-    hiddenApiBypass = '4.3'
-}
-
+// buildscript MUST come before plugins in Gradle 8+
 buildscript {
     repositories {
         google()
@@ -27,11 +11,31 @@ buildscript {
     }
 }
 
+// Now plugins block is allowed
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.android.library) apply false
+}
+
+// Your ext block is fine
+ext {
+    compileSdkVersion = 35
+    targetSdkVersion = 35
+
+    minSdk = 24
+    versionCode = 500
+    versionName = "5.0.0"
+    xVersion = '1.1.0'
+    hiddenApiBypass = '4.3'
+}
+
+// Required repositories for all modules
 allprojects {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
-        jcenter() // optional, helps with older libraries
+        jcenter() // optional
     }
 }
