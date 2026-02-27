@@ -57,7 +57,7 @@ dependencies {
     implementation project(':Bcore')
 
     implementation libs.appcompat
-    implementation 'com.google.android.material:material:1.14.0'
+    implementation 'com.google.android.material:material:1.13.0'
     implementation libs.constraintlayout
     implementation libs.core.ktx
     implementation 'androidx.preference:preference-ktx:1.2.1'
@@ -74,8 +74,16 @@ dependencies {
 
     implementation 'org.osmdroid:osmdroid-android:6.1.11'
 
-    implementation 'com.afollestad.material-dialogs:core:3.3.0'
-    implementation 'com.afollestad.material-dialogs:input:3.3.0'
+    // Updated - required to match Material version
+    implementation 'com.afollestad.material-dialogs:core:3.3.0-rc2'
+    implementation 'com.afollestad.material-dialogs:input:3.3.0-rc2'
 
     implementation 'androidx.work:work-runtime-ktx:2.10.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        // Force Material version to avoid dependency conflicts
+        force "com.google.android.material:material:1.13.0"
+    }
 }
