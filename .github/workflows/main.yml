@@ -18,30 +18,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          cache: 'gradle' # Automatically caches Gradle dependencies
 
-      - name: Install Android SDK + Build Tools + NDK
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip
-
-          mkdir -p $HOME/android-sdk
-          cd $HOME/android-sdk
-
-          wget https://dl.google.com/android/repository/commandlinetools-linux-12266719_latest.zip -O cmd.zip
-          unzip cmd.zip -d cmdline-tools
-          mv cmdline-tools/cmdline-tools cmdline-tools/latest
-
-          yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
-
-          $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0" \
-            "ndk;29.0.13846066" \
-            "cmake;3.22.1"
-
-          echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "PATH=$PATH:$HOME/android-sdk/platform-tools" >> $GITHUB_ENV
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          # Automatically installs the required components
+          packages: "platform-tools platforms;android-35 build-tools;35.0.0 ndk;29.0.13846066 cmake;3.22.1"
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
