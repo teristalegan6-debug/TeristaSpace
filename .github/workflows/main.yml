@@ -18,9 +18,8 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-          cache: 'gradle'
 
-      - name: Install Android SDK + Accept Licenses
+      - name: Install Android SDK (Correct Path)
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
