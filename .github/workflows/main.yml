@@ -22,23 +22,27 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Install Android SDK + NDK
-        uses: android-actions/setup-android@v3
-        with:
-          api-level: 35
-          ndk: 29.0.13846066
-          cmake: 3.22.1
-          accept-android-sdk-licenses: true
-          log-accepted-android-sdk-licenses: true
-
-      - name: Accept All SDK Licenses
-        run: yes | sdkmanager --licenses
+      - name: Install Android SDK + Accept Licenses
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-21-jdk wget unzip
+          mkdir -p $HOME/android-sdk
+          cd $HOME/android-sdk
+          wget https://dl.google.com/android/repository/commandlinetools-linux-12266719_latest.zip
+          unzip commandlinetools-linux-12266719_latest.zip
+          yes | $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
+          $HOME/android-sdk/cmdline-tools/bin/sdkmanager \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0" \
+            "ndk;29.0.13846066" \
+            "cmake;3.22.1"
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
       - name: Build Debug APK
-        run: ./gradlew clean assembleDebug --refresh-dependencies --stacktrace
+        run: ./gradlew clean assembleDebug --stacktrace
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
