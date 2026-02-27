@@ -3,6 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -12,13 +13,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://repo.gitee.com" }
     }
 }
 
 rootProject.name = "TeristaSpace"
 
-include ':app'
+include(":app")
 include(":black-reflection")
 include(":compiler")
-include ':Bcore'
+include(":Bcore")
