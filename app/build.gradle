@@ -74,16 +74,8 @@ dependencies {
 
     implementation 'org.osmdroid:osmdroid-android:6.1.11'
 
-    // Updated - required to match Material version
     implementation 'com.afollestad.material-dialogs:core:3.2.1'
     implementation 'com.afollestad.material-dialogs:input:3.2.1'
 
     implementation 'androidx.work:work-runtime-ktx:2.10.0'
-}
-
-configurations.all {
-    resolutionStrategy {
-        // Force Material version to avoid dependency conflicts
-        force "com.google.android.material:material:1.13.0"
-    }
 }
