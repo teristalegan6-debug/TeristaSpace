@@ -25,14 +25,13 @@ jobs:
       - name: Install Android SDK + NDK
         uses: android-actions/setup-android@v3
         with:
-          cmdline-tools-version: 12266719
-          packages: |
-            platforms;android-35
-            build-tools;35.0.0
-            platform-tools
-            ndk;29.0.13846066
+          api-level: 35
+          ndk: 29.0.13846066
+          cmake: 3.22.1
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: true
 
-      - name: Accept licenses
+      - name: Accept All SDK Licenses
         run: yes | sdkmanager --licenses
 
       - name: Make gradlew executable
