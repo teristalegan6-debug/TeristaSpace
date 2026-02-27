@@ -20,18 +20,19 @@ android {
         }
     }
 
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/cpp/Android.mk'
+        }
+    }
+
+    ndkVersion "29.0.13846066"
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    externalNativeBuild {
-        ndkBuild {
-            path 'src/main/cpp/Android.mk'
-        }
-        ndkVersion "29.0.13846066"
     }
 
     compileOptions {
@@ -64,10 +65,15 @@ tasks.withType(Javadoc) {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
+
     implementation 'com.google.android.material:material:1.13.0'
-    implementation project(":black-reflection")
-    annotationProcessor project(":compiler")
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.moandjiezana.toml:toml4j:0.7.2'
     implementation 'com.github.tiann:FreeReflection:3.2.2'
+
+    // MUST be included so compiler can generate black.android.* stubs
+    implementation project(":black-reflection")
+
+    // Annotation processor for Java stub generator
+    annotationProcessor project(":compiler")
 }
